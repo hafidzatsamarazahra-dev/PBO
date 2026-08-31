@@ -2,7 +2,8 @@
 
 <h4>Nama : Hafidza Tsamara Z.<br>
 NIM : 254107020034<br>
-Kelas : TI-2G<h4>
+Kelas : TI-2G<br>
+Repository [link] : https://github.com/hafidzatsamarazahra-dev/PBO.git <h4>
 
 ## Hasil percobaan 1
 <img src="Screenshot 2026-08-28 100313.png" width="50%">
