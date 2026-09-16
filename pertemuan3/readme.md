@@ -57,3 +57,58 @@ Repository [link] : https://github.com/hafidzatsamarazahra-dev/PBO.git <h4>
 9. - Inisialisasi Method: Merujuk pada pendefinisian/pembuatan struktur dan isi kode dari suatu method di dalam class.
 
     - Instansiasi Method: Merujuk pada pemanggilan/penggunaan method tersebut melalui objek yang telah dibuat (karena yang di-instansiasi sebenarnya adalah objeknya, bukan method-nya).
+
+## Tugas
+2. Pada program diatas, pada class EncapTest kita mengeset age dengan nilai 35, namun pada
+saat ditampilkan ke layar nilainya 30, jelaskan mengapa
+
+    jawaban: karena public void setAge(int newAge){
+        if(newAge>30){
+            age=30;
+        }else{
+            age=newAge;
+        }
+    }
+    Nilai 35 masuk sebagai parameter newAge.
+
+    Program mengecek kondisi if(35 > 30), yang bernilai benar (true).
+
+    Karena benar, blok di dalam if dijalankan dan variabel age diisi dengan nilai 30.
+3. public void setAge(int newAge){
+        if (newAge > 30) {
+            age = 30;
+        } else if (newAge < 18) {
+            age = 18;
+        } else {
+            age = newAge;
+        }
+    }
+4. class kontainer
+
+    <img src="Screenshot 2026-09-16 221513.png" width="50%">
+
+    class TestKontainer
+
+    <img src="Screenshot 2026-09-16 221621.png" width="50%">
+
+    Hasil output
+
+    <img src="Screenshot 2026-09-16 221310.png" width="50%">
+5. modif class kontainer
+
+    <img src="Screenshot 2026-09-16 221819.png" width="50%">
+6. modif class TestLogistik
+
+    <img src="Screenshot 2026-09-16 222110.png" width="50%">
+7. class Tiket
+
+    <img src="Screenshot 2026-09-16 222706.png" width="50%">
+
+    class TestBioskop
+
+    <img src="Screenshot 2026-09-16 222752.png" width="50%">
+
+    Hasil output
+
+    <img src="Screenshot 2026-09-16 222521.png" width="50%">
+
