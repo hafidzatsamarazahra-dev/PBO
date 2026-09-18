@@ -47,3 +47,40 @@ akan kita buktikan sendiri lewat kode pada Percobaan 5).
     this.proc = proc;
     }
 7. Objek Processor diinstansiasi secara internal di dalam konstruktor Laptop (this.proc = new Processor(...)). Dengan demikian, keberadaan dan siklus hidup objek Processor bergantung sepenuhnya pada objek Laptop. Apabila objek Laptop dihancurkan, maka objek Processor di dalamnya juga akan ikut terhapus.
+
+## Pertanyaan Percobaan 2
+1. Perhatikan class Pelanggan. Pada baris program manakah yang menunjukkan bahwa class Pelanggan
+memiliki relasi dengan class Mobil dan class Sopir?
+10
+2. Perhatikan method hitungBiayaSopir pada class Sopir, serta method hitungBiayaMobil pada
+class Mobil. Mengapa method tersebut harus memiliki argument hari, padahal hari sendiri adalah
+atribut milik Pelanggan, bukan milik Mobil atau Sopir?
+3. Perhatikan kode dari class Pelanggan. Untuk apakah perintah mobil.hitungBiayaMobil(hari)
+dan sopir.hitungBiayaSopir(hari)?
+4. Perhatikan class MainPercobaan2. Untuk apakah sintaks p.setMobil(m) dan p.setSopir(s)?
+5. Untuk apakah proses p.hitungBiayaTotal()?
+6. Pada Langkah 7, p.getMobil().getMerk() memanggil dua method sekaligus secara berantai.
+Jelaskan urutan eksekusinya: objek apa yang dikembalikan p.getMobil(), dan objek apa yang
+kemudian dipanggil .getMerk()-nya?
+7. Andaikan p.setMobil(m) tidak pernah dipanggil lalu p.hitungBiayaTotal() dijalankan, error
+apa yang akan muncul? Jelaskan mengapa error itu terjadi, dikaitkan dengan konsep referensi objek
+yang sudah kita pelajari sebelumnya. 
+
+### jawaban
+1. private Mobil mobil;
+
+    private Sopir sopir;
+2. Method tersebut memerlukan argumen hari karena jumlah hari sewa merupakan variabel dinamis yang menentukan total biaya. Class Mobil dan Sopir hanya menyimpan informasi tarif per hari (misalnya biaya atau tarif), sehingga untuk menghitung total biaya sewa komponen tersebut, method membutuhkan masukan data lama durasi sewa yang berasal dari objek Pelanggan.
+3. - mobil.hitungBiayaMobil(hari): Berfungsi untuk menghitung dan mengembalikan (return) subtotal biaya sewa mobil berdasarkan durasi hari yang dikirimkan.
+
+    - sopir.hitungBiayaSopir(hari): Berfungsi untuk menghitung dan mengembalikan (return) subtotal biaya jasa sopir berdasarkan durasi hari yang dikirimkan.
+4. - p.setMobil(m): Memasukkan referensi objek m (instansi dari Mobil) ke dalam atribut mobil milik objek p (Pelanggan).
+
+    - p.setSopir(s): Memasukkan referensi objek s (instansi dari Sopir) ke dalam atribut sopir milik objek p (Pelanggan).
+5. Proses tersebut bertujuan untuk menghitung keseluruhan biaya yang harus dibayar oleh pelanggan. Method ini akan menjumlahkan hasil kalkulasi biaya sewa mobil dan biaya jasa sopir dengan memanggil method perhitungan dari masing-masing objek komponennya.
+6. - p.getMobil() dieksekusi terlebih dahulu: Method ini mengembalikan (return) referensi objek Mobil yang tersimpan di dalam atribut mobil pada objek p.
+
+    - .getMerk() dieksekusi kemudian: Method ini dipanggil langsung dari objek Mobil hasil pengembalian tahap pertama untuk mengambil String merek dari mobil tersebut.
+7. Jenis Error: NullPointerException.
+
+    Penjelasan: Jika p.setMobil(m) tidak dipanggil, maka atribut mobil di dalam objek p belum menunjuk ke instansi objek Mobil manapun di memori, sehingga nilainya secara default masih null. Ketika p.hitungBiayaTotal() dijalankan dan berusaha memanggil method mobil.hitungBiayaMobil(hari), program mencoba mengakses method dari referensi bernilai null, yang menyebabkan Java melempar eksepsi NullPointerException.
