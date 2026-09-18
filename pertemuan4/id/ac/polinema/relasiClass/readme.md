@@ -84,3 +84,35 @@ yang sudah kita pelajari sebelumnya.
 7. Jenis Error: NullPointerException.
 
     Penjelasan: Jika p.setMobil(m) tidak dipanggil, maka atribut mobil di dalam objek p belum menunjuk ke instansi objek Mobil manapun di memori, sehingga nilainya secara default masih null. Ketika p.hitungBiayaTotal() dijalankan dan berusaha memanggil method mobil.hitungBiayaMobil(hari), program mencoba mengakses method dari referensi bernilai null, yang menyebabkan Java melempar eksepsi NullPointerException.
+
+## Pertanyaan Percobaan 3
+1. Di dalam method info() pada class KeretaApi, baris this.masinis.info() dan
+this.asisten.info() digunakan untuk apa?
+2. Apa hasil output dari MainPertanyaan sebelum diperbaiki (Langkah 8)? Mengapa hal tersebut dapat
+terjadi?
+3. Kaitkan dengan materi referensi objek: apa isi variabel asisten di dalam objek KeretaApi yang
+dibuat lewat constructor 3-parameter, sebelum guard clause ditambahkan?
+4. Setelah guard clause ditambahkan (Langkah 9), apakah objek masinis juga perlu dicek dengan cara
+yang sama? Perhatikan kedua constructor KeretaApi, apakah mungkin masinis bernilai null?
+Jelaskan.
+5. Kelas Pegawai dipakai lewat dua atribut berbeda (masinis dan asisten) pada KeretaApi. Apakah
+ini membuat KeretaApi punya dua objek Pegawai yang berbeda, atau satu objek Pegawai yang
+dipakai dua kali? Jelaskan berdasarkan kode pada Langkah 6. 
+
+### jawaban
+1. Kegunaan this.masinis.info() dan this.asisten.info()
+Kedua baris tersebut digunakan untuk memanggil method info() milik objek Pegawai yang tersimpan pada atribut masinis dan asisten. Tujuannya adalah menampilkan rincian informasi (seperti NIP dan nama) dari masing-masing pegawai tersebut.
+2. Hasil Output: Terjadi error/eksepsi java.lang.NullPointerException.
+
+    Penyebab: Pada Langkah 8, objek KeretaApi diinstansiasi menggunakan konstruktor 3-parameter tanpa menyertakan objek asisten (parameter asisten tidak diisi atau bernilai null). Ketika method info() dipanggil, program mencoba mengeksekusi this.asisten.info(), yaitu memanggil method dari referensi yang bernilai null.
+3. Di dalam objek KeretaApi yang dibuat via konstruktor 3-parameter, variabel referensi asisten berisi nilai null (alamat memori kosong/belum menunjuk ke instansi objek Pegawai manapun).
+4. Apakah masinis mungkin bernilai null?: Ya, sangat mungkin.
+
+    Penjelasan: Pada konstruktor 3-parameter (nama, kelas, masinis), parameter asisten tidak ada sehingga atribut asisten secara otomatis bernilai null. Namun, jika seseorang secara sengaja menginstansiasi KeretaApi dengan memasukkan argumen null pada posisi parameter masinis (misal: new KeretaApi("Gaya Baru", "Bisnis", null)), maka atribut masinis juga akan bernilai null. Oleh karena itu, guard clause (if (masinis != null)) sebaiknya juga diterapkan pada atribut masinis untuk mencegah NullPointerException.
+5. Pada Langkah 6, dilakukan instansiasi dua kali menggunakan operator new:
+
+    Pegawai masinis = new Pegawai("1234", "Spongebob Squarepants"); (membuat objek Pegawai pertama di memori).
+
+    Pegawai asisten = new Pegawai("5678", "Patrick Star"); (membuat objek Pegawai kedua di lokasi memori yang berbeda).
+
+    Kedua referensi objek yang berbeda tersebut kemudian masing-masing diteruskan ke atribut masinis dan asisten pada class KeretaApi.
