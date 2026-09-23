@@ -222,3 +222,47 @@ dipakai, apakah Mobil-Mesin berubah menjadi Aggregation? Jelaskan alasannya.
 5. Ya, relasinya berubah menjadi Aggregation jika menggunakan konstruktor tersebut.
 
     Alasan: Objek Mesin dibuat di luar class Mobil terlebih dahulu, kemudian dioper/diteruskan ke dalam Mobil sebagai argumen parameter. Dengan demikian, objek Mesin memiliki siklus hidup yang independen dari objek Mobil dan dapat digunakan atau dirujuk oleh bagian kode lainnya.
+
+## Pertanyaan Percobaan 6
+1. Apakah class Laptop pada percobaan ini memiliki atribut bertipe Printer? Bandingkan dengan
+Percobaan 1, di mana Processor disimpan sebagai atribut Laptop.
+2. Setelah method cetakDokumen() selesai dijalankan, apakah Laptop masih menyimpan referensi ke
+objek printer yang tadi dipakai? Jelaskan berdasarkan baris kode class Laptop.
+3. Mengapa relasi Laptop-Printer pada percobaan ini disebut Dependency (uses-a), bukan Aggregation,
+meskipun sama-sama melibatkan dua objek yang saling berinteraksi?
+4. Coba ubah kode Laptop supaya Printer disimpan sebagai atribut (mis. private Printer
+printerDefault, diisi lewat constructor atau setter, lalu dipakai kembali di cetakDokumen()
+tanpa parameter Printer). Apakah relasi ini sekarang berubah dari Dependency menjadi
+Aggregation? Jelaskan. 
+5. Lengkapi tabel berikut dengan kata-katamu sendiri (boleh dijawab di laporan): untuk masing-masing
+dari Aggregation, Composition, dan Dependency, sebutkan (a) apakah objek part disimpan sebagai
+atribut atau tidak, dan (b) siapa yang memanggil new untuk membuat objek part tersebut. 
+
+### jawaban
+1. Tidak. Class Laptop pada percobaan ini tidak memiliki atribut bertipe Printer.
+
+    Perbandingan dengan Percobaan 1: Pada Percobaan 1, Processor disimpan secara permanen sebagai atribut (field) dari Laptop (private Processor proc;). Sementara pada Percobaan 6, Printer tidak disimpan sebagai atribut, melainkan hanya disisipkan sebagai parameter pada method cetakDokumen(Printer printer).
+2. Tidak. Laptop tidak menyimpan referensi ke objek Printer tersebut.
+
+    Variabel printer hanya bersifat sebagai variabel lokal/parameter dari method cetakDokumen(). Begitu eksekusi method cetakDokumen() selesai, variabel lokal tersebut akan dialokasikan keluar dari stack (scope hilang), sehingga Laptop tidak lagi memegang referensi ke objek Printer.
+3. Relasi ini disebut Dependency (uses-a) karena class Laptop hanya menggunakan (uses) objek Printer secara sementara untuk menyelesaikan suatu tugas (method), tanpa memiliki (has-a) objek tersebut. Laptop tidak menyimpan Printer di dalam struktur atributnya, sehingga keterikatannya sangat longgar dan hanya terjadi saat method dipanggil.
+4. Ya, relasi tersebut berubah dari Dependency menjadi Aggregation.
+
+    Ketika Printer disimpan sebagai atribut private Printer printerDefault; dan diisikan melalui konstruktor atau setter, relasi yang tadinya uses-a (ketergantungan sementara) berubah menjadi has-a (kepemilikan). Karena objek Printer dibuat di luar class Laptop lalu disuntikkan via konstruktor/setter, maka sifat kepemilikannya adalah Aggregation (longgar/independen).
+5. - Aggregation
+
+    (a) Status Penyimpanan Atribut: Ya, objek part disimpan sebagai atribut (field) permanen di dalam class utama.
+
+    (b) Pihak Pembuat Objek (new): Objek part dibuat di luar class utama (misalnya di main program), lalu diteruskan atau disuntikkan ke class utama melalui parameter konstruktor atau method setter.
+
+    - Composition
+
+    (a) Status Penyimpanan Atribut: Ya, objek part disimpan sebagai atribut (field) permanen di dalam class utama.
+
+    (b) Pihak Pembuat Objek (new): Objek part dibuat secara internal di dalam class utama itu sendiri (biasanya dieksekusi langsung di dalam konstruktor class utama).
+
+    - Dependency
+
+    (a) Status Penyimpanan Atribut: Tidak, objek part tidak disimpan sebagai atribut class.
+
+    (b) Pihak Pembuat Objek (new): Objek part biasanya dibuat di luar class utama, lalu hanya dioper sebagai argumen/parameter sementara saat panggilan method tertentu dijalankan.
