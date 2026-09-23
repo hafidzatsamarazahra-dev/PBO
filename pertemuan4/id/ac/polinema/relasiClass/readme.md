@@ -266,3 +266,91 @@ atribut atau tidak, dan (b) siapa yang memanggil new untuk membuat objek part te
     (a) Status Penyimpanan Atribut: Tidak, objek part tidak disimpan sebagai atribut class.
 
     (b) Pihak Pembuat Objek (new): Objek part biasanya dibuat di luar class utama, lalu hanya dioper sebagai argumen/parameter sementara saat panggilan method tertentu dijalankan.
+
+## Tugas
+
+1. Deskripsi & Diagram Kelas (UML)
+
++-------------------+           +-------------------+
+|      Dokter       |           |      Pasien       |
++-------------------+           +-------------------+
+| - nama: String    |           | - nama: String    |
+| - spesialis: Str. |           | - noRM: String    |
++-------------------+           +-------------------+
+| + info(): void    |           | + info(): void    |
++-------------------+           +-------------------+
+          ^                               ^
+          | (Aggregation)                 | (Dependency)
+          |                               |
++---------------------------------------------------+
+|                      RekamMedis                   |
++---------------------------------------------------+
+| - idRekam: String                                 |
+| - tanggal: String                                 |
+| - resep: Resep             <--- (Composition)     |
+| - dokter: Dokter                                  |
++---------------------------------------------------+
+| + cetakRekamMedis(pasien: Pasien): void           |
++---------------------------------------------------+
+                          |
+                          v (Composition)
+                +-------------------+
+                |       Resep       |
+                +-------------------+
+                | - obat: String    |
+                | - dosis: String   |
+                +-------------------+
+                | + info(): void    |
+                +-------------------+
+
+Class Dokter
+
+<img src="Screenshot 2026-09-23 195754.png" width="50%">
+
+Class pasien
+
+<img src="Screenshot 2026-09-23 200042.png" width="50%">
+
+Class resep
+
+<img src="Screenshot 2026-09-23 210040.png" width="50%">
+
+Class RekamMedis
+
+<img src="Screenshot 2026-09-23 210708.png" width="50%">
+
+Class MainTugas
+
+<img src="Screenshot 2026-09-23 210819.png" width="50%">
+
+Hasil output
+
+<img src="Screenshot 2026-09-23 211247.png" width="50%">
+
+- Relasi Aggregation: RekamMedis - Dokter
+
+    private Dokter dokter;
+    public RekamMedis(..., Dokter dokter, ...) {
+        this.dokter = dokter;
+    }
+
+    Objek Dokter dibuat di luar class RekamMedis (main program) lalu dikirim melalui parameter konstruktor. Jika objek RekamMedis dihapus dari memori, objek Dokter tetap ada dan masih bisa digunakan untuk rekam medis pasien lainnya.
+
+- Relasi Composition: RekamMedis - Resep
+
+    private Resep resep;
+    public RekamMedis(..., String obat, String dosis) {
+        this.resep = new Resep(obat, dosis);
+    }
+
+    Objek Resep dikonstruksi secara internal (new Resep(...)) di dalam konstruktor RekamMedis. Siklus hidup Resep terikat mati pada RekamMedis; jika dokumen RekamMedis dihancurkan, maka objek Resep di dalamnya ikut terhapus dari memori.
+
+- Relasi Dependency: RekamMedis - Pasien
+
+    public void cetakRekamMedis(Pasien pasien) {
+    pasien.info();
+    }
+
+    Class RekamMedis tidak menyimpan Pasien sebagai atribut (field) permanen. Objek Pasien hanya dipinjam/digunakan sementara sebagai parameter pada method cetakRekamMedis(). Setelah method selesai dieksekusi, referensi objek Pasien dilepas.
+
+2. Untuk memutuskan jenis relasi antar-class, kita dapat mengajukan tiga pertanyaan kunci berdasarkan tingkat keterikatan dan siklus hidup objek. Pertama, ajukan pertanyaan: "Apakah Class A menggunakan Class B hanya secara sementara saat method tertentu dipanggil?" Jika ya, gunakan Dependency. Kedua, jika Class A memiliki Class B sebagai atribut, tanyakan: "Apakah Class B dibuat di luar dan masih bisa hidup sendiri jika Class A dihapus?" Jika ya, pilih Aggregation. Ketiga, tanyakan: "Apakah Class B diciptakan langsung di dalam Class A dan ikut musnah jika Class A dihapus?" Jika ya, maka pilih Composition.
