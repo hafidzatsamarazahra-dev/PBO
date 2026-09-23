@@ -116,3 +116,70 @@ Kedua baris tersebut digunakan untuk memanggil method info() milik objek Pegawai
     Pegawai asisten = new Pegawai("5678", "Patrick Star"); (membuat objek Pegawai kedua di lokasi memori yang berbeda).
 
     Kedua referensi objek yang berbeda tersebut kemudian masing-masing diteruskan ke atribut masinis dan asisten pada class KeretaApi.
+
+## Pertanyaan Percobaan 4
+1. Pada main program dalam class MainPercobaan4, berapakah jumlah kursi dalam Gerbong A?
+2. Perhatikan potongan kode if (this.penumpang != null) { ... } pada method info()
+dalam class Kursi. Apa maksud kode tersebut?
+3. Mengapa pada method setPenumpang() dalam class Gerbong, nilai nomor dikurangi dengan angka 1?
+4. Instansiasi objek baru budi dengan tipe Penumpang, kemudian masukkan objek baru tersebut pada
+gerbong dengan gerbong.setPenumpang(budi, 1), menimpa Mr. Krab yang sudah duduk di
+sana. Apakah yang terjadi? Apakah Java memberi peringatan/error?
+5. Modifikasi program sehingga tidak diperkenankan menduduki kursi yang sudah ada penumpang lain
+(tambahkan pengecekan pada Gerbong.setPenumpang() sebelum baris arrayKursi[nomor -
+1].setPenumpang(...) dijalankan).
+6. Bandingkan tiga bentuk relasi has-a yang sudah kita praktikkan: Laptop-Processor (Percobaan 1, 1-
+1), KeretaApi-Pegawai (Percobaan 3, dua relasi 1-1 bernama), dan Gerbong-Kursi (Percobaan 4, 1..*).
+Untuk kasus seperti apa kita akan memilih array, dan untuk kasus seperti apa kita akan memilih
+atribut bernama satu-satu?
+7. Terapkan kriteria kode (siapa yang memanggil new) pada dua relasi has-a di Percobaan ini: GerbongKursi dan Kursi-Penumpang. Manakah yang Aggregation dan manakah yang Composition? Tunjukkan
+baris kode yang menjadi bukti untuk masing-masing.
+
+### jawaban
+1. Jumlah kursi dalam Gerbong A adalah 10 kursi (sesuai dengan argumen 10 yang dikirimkan saat instansiasi new Gerbong("A", 10) pada class MainPercobaan4).
+2. Kode tersebut merupakan guard clause yang berfungsi untuk memeriksa apakah kursi tersebut sudah diisi oleh penumpang atau masih kosong.
+
+    Jika penumpang != null (ada objek Penumpang), maka program akan menampilkan rincian informasi penumpang via penumpang.info().
+
+    Jika penumpang == null, bagian menampilkan info penumpang dilewati (atau menampilkan status kursi kosong) sehingga mencegah terjadinya NullPointerException.
+3. Pengurangan angka 1 dilakukan untuk menyesuaikan nomor kursi dunia nyata (berbasis 1) dengan indeks array pada Java (berbasis 0).
+Pengguna atau sistem menentukan posisi kursi mulai dari nomor 1 hingga 10, sedangkan secara teknis di memori, elemen array arrayKursi tersimpan pada indeks 0 hingga 9.
+4. Yang Terjadi: Objek budi akan berhasil menimpa objek Mr. Krab pada kursi nomor 1.
+
+    Peringatan/Error Java: Java tidak memberikan peringatan maupun error. Secara teknis, variabel referensi penumpang pada objek Kursi indeks ke-0 hanya akan mengganti alamat referensinya dari objek Mr. Krab menjadi objek budi.
+5. public void setPenumpang(Penumpang penumpang, int nomor) {
+   penumpangnya
+    if (this.arrayKursi[nomor - 1].getPenumpang() != null) {
+        System.out.println("Gagal: Kursi nomor " + nomor + " sudah diisi oleh penumpang lain!");
+    } else {
+        this.arrayKursi[nomor - 1].setPenumpang(penumpang);
+    }
+    }
+6. - Penggunaan Atribut Bernama Satu-satu: Dipilih ketika jumlah hubungan antar-objek bersifat pasti, terbatas, dan memiliki peran/fungsi yang berbeda secara eksplisit. 
+
+    Contohnya:Laptop-Processor (1-1): Komputer umumnya hanya memiliki satu komponen utama prosesor.
+
+    KeretaApi-Pegawai (dua atribut bernama): Memiliki fungsi peran terpisah yang jelas, yaitu masinis dan asisten.
+
+    - Penggunaan Array (Koleksi): Dipilih ketika jumlah hubungan bernilai banyak/jamak ($1..*$) atau dinamis, di mana tiap elemennya memiliki peran, struktur, dan sifat yang seragam. 
+
+    Contohnya Gerbong-Kursi, di mana satu gerbong menampung banyak kursi dengan struktur yang sama persis.
+7. - Gerbong - Kursi merupakan COMPOSITION
+
+    Alasan: Objek Kursi dikonstruksi/dibuat di dalam class Gerbong (menggunakan operator new di dalam class Gerbong).
+
+    Bukti Kode (pada constructor Gerbong):
+
+    for (int i = 0; i < arrayKursi.length; i++) {
+    this.arrayKursi[i] = new Kursi(String.valueOf(i + 1));
+    }
+
+    - Kursi - Penumpang merupakan AGGREGATION
+
+    Alasan: Objek Penumpang dibuat di luar class Kursi (pada main program) dan hanya diteruskan/dimasukkan lewat method setter.
+
+    Bukti Kode (pada method setPenumpang dalam class Kursi):
+
+    public void setPenumpang(Penumpang penumpang) {
+        this.penumpang = penumpang;
+    }
