@@ -183,3 +183,42 @@ Pengguna atau sistem menentukan posisi kursi mulai dari nomor 1 hingga 10, sedan
     public void setPenumpang(Penumpang penumpang) {
         this.penumpang = penumpang;
     }
+
+## Pertanyaan Percobaan 5
+1. Pada class Mobil, baris manakah yang menunjukkan bahwa Mesin adalah bagian yang “dimiliki
+secara eksklusif” oleh Mobil (bukan sekadar “dipinjam”)?
+2. Apa yang terjadi secara desain jika ditambahkan method setMesin(Mesin mesin) pada class
+Mobil? Apakah relasi ini akan tetap menjadi Composition? Jelaskan.
+3. Bandingkan dengan Percobaan 1 (Laptop-Processor): sebutkan satu perbedaan baris kode yang
+membuat salah satunya Aggregation dan yang lain Composition.
+4. Jika objek mobil di MainPercobaan5 di-set null setelah tampilkanInfo() dipanggil, apa yang
+terjadi pada objek Mesin miliknya? Bandingkan dengan nasib objek Processor pada Percobaan 1
+seandainya objek Laptop-nya dihapus, apakah Processor tersebut masih bisa “diselamatkan” oleh
+kode lain? Kenapa Mesin tidak bisa?
+5. Coba (secara terpisah, boleh di file/package percobaan sendiri) tambahkan constructor kedua pada
+Mobil yang menerima parameter Mesin, mirip pola Percobaan 1: public Mobil(String merek,
+Mesin mesin) { this.merek = merek; this.mesin = mesin; }. Kalau constructor ini yang
+dipakai, apakah Mobil-Mesin berubah menjadi Aggregation? Jelaskan alasannya. 
+
+### jawaban
+1. this.mesin = new Mesin();
+2. Relasi tersebut berpotensi melemah atau tidak lagi menjadi Composition murni, melainkan bergeser ke arah Aggregation.
+
+    Jika terdapat method setMesin(Mesin mesin), objek Mesin dari luar dapat disuntikkan (inject) atau diganti sewaktu-waktu. Hal ini menghilangkan sifat keterikatan penuh di mana Mobil menjadi satu-satunya pihak yang mengontrol pembuatan dan penggantian Mesin.
+3. Perbedaannya terletak pada tempat instansiasi objek komponennya dilakukan:
+
+    - Composition (Percobaan 5 - Mobil): Instansiasi new dilakukan di dalam konstruktor Mobil.
+
+    this.mesin = new Mesin();
+
+    - Aggregation (Percobaan 1 - Laptop): Instansiasi new dilakukan di luar class Laptop (main program), lalu objeknya diteruskan melalui parameter konstruktor.
+
+    public Laptop(String merk, Processor proc) {
+    this.proc = proc;
+    }
+4. Nasib Objek Mesin pada Percobaan 5: Objek Mesin akan ikut hilang/dihancurkan dari memori oleh Garbage Collector. Hal ini terjadi karena tidak ada variabel referensi lain dari luar yang memegang objek Mesin tersebut selain atribut mesin di dalam objek mobil.
+
+    Perbandingan dengan Objek Processor pada Percobaan 1: Objek Processor masih bisa diselamatkan karena diinstansiasi di main program dan disimpan dalam variabel tersendiri (misalnya p). Meskipun objek laptop di-set null, objek Processor masih diacu oleh variabel p. Sebaliknya, Mesin pada Percobaan 5 dibuat secara internal tanpa variabel penampung di luar, sehingga keberadaannya terikat mati dengan siklus hidup Mobil.
+5. Ya, relasinya berubah menjadi Aggregation jika menggunakan konstruktor tersebut.
+
+    Alasan: Objek Mesin dibuat di luar class Mobil terlebih dahulu, kemudian dioper/diteruskan ke dalam Mobil sebagai argumen parameter. Dengan demikian, objek Mesin memiliki siklus hidup yang independen dari objek Mobil dan dapat digunakan atau dirujuk oleh bagian kode lainnya.
