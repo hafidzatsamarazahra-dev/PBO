@@ -61,3 +61,32 @@ Repository [link] : https://github.com/hafidzatsamarazahra-dev/PBO.git <h4>
 5. Atribut protected: Ya, ClassB tetap dapat mengaksesnya. Berdasarkan tabel akses, atribut protected dapat diakses oleh subclass meskipun berada di package yang berbeda.
 
     Atribut Default (tanpa modifier): Tidak dapat diakses. Atribut bertipe default (package-private) hanya dapat diakses oleh class-class yang berada dalam package yang sama. Jika berada di beda package, subclass tidak akan bisa mengaksesnya.
+
+## Pertanyaan Percobaan 3 
+1. Jelaskan fungsi super pada super.phi = phi; dan super.r = r; di method setSuperPhi() dan setSuperR() milik Tabung. 
+2. Jelaskan fungsi super dan this pada ekspresi super.phi * super.r * super.r * this.t di method volume(). 
+3. Mengapa Tabung tidak mendeklarasikan atribut phi dan r, tetapi tetap dapat mengaksesnya? Apa yang terjadi bila pada Bangun keduanya diubah menjadi private? 
+4. Pada Eksperimen 1, apakah output berubah ketika super.phi diganti this.phi? Jelaskan mengapa. 
+5. Pada Eksperimen 2, mengapa r, this.r, dan super.r menghasilkan nilai yang berbeda? Pada kondisi apa awalan super. menjadi wajib dipakai? 
+
+### jawaban percobaan 3
+1. Fungsi super pada setSuperPhi() dan setSuperR():
+Kata kunci super digunakan untuk merujuk secara eksplisit ke atribut milik superclass (Bangun). Pada kode tersebut, super.phi = phi; dan super.r = r; berfungsi untuk mengisi variabel phi dan r yang berada di class induk (Bangun) dengan nilai dari parameter method yang dikirim.
+2. super.phi dan super.r: Mengambil nilai atribut phi dan r yang diwarisi dari superclass (Bangun).
+
+    this.t: Mengambil nilai atribut t (tinggi) yang dideklarasikan secara lokal di dalam class itu sendiri (Tabung).
+3. Mengapa Tetap Bisa Mengakses: Karena Tabung melakukan inheritance (extends Bangun) dan atribut phi serta r di Bangun berakses protected. Atribut protected otomatis diwariskan dan dapat diakses oleh subclass.
+
+    Jika Diubah Menjadi private: Akan terjadi error kompilasi (compile error). Atribut private hanya bisa diakses di dalam Bangun itu sendiri, sehingga Tabung tidak lagi memiliki akses langsung ke phi dan r.
+4. Tidak, output tetap sama.
+
+    Tabung mewarisi phi dari Bangun dan tidak mendeklarasikan ulang atribut phi di dalam dirinya (tidak ada shadowing). Oleh karena itu, this.phi dan super.phi menunjuk ke variabel yang sama di memori.
+5. Penyebab Perbedaan Nilai: Hal ini terjadi karena ada Variable Shadowing (class Tabung mendeklarasikan ulang atribut r sendiri).
+
+        r (tanpa kata kunci) merujuk ke atribut terdekat, yaitu r milik Tabung.
+
+        this.r merujuk ke atribut r milik instans class saat ini (Tabung).
+
+        super.r merujuk ke atribut r milik superclass (Bangun).
+
+    Kondisi super. Wajib Dipakai: Awalan super. wajib digunakan saat terjadi shadowing (nama atribut/method di subclass sama persis dengan yang di superclass) dan kita ingin secara khusus mengakses atribut atau method milik superclass tersebut.
