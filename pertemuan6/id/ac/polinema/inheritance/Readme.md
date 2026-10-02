@@ -90,3 +90,43 @@ Kata kunci super digunakan untuk merujuk secara eksplisit ke atribut milik super
         super.r merujuk ke atribut r milik superclass (Bangun).
 
     Kondisi super. Wajib Dipakai: Awalan super. wajib digunakan saat terjadi shadowing (nama atribut/method di subclass sama persis dengan yang di superclass) dan kita ingin secara khusus mengakses atribut atau method milik superclass tersebut.
+
+## Pertanyaan Percobaan 4 
+1. Sebutkan class yang berperan sebagai superclass dan subclass pada percobaan ini beserta alasannya. Mengapa ClassB disebut berperan ganda? 
+2. Program hanya membuat satu objek (new ClassC()), tetapi tiga baris tercetak. Jelaskan mengapa konstruktor ClassA dan ClassB ikut dijalankan. 
+3. Pada Modifikasi 1, mengapa output tidak berbeda dari sebelumnya meskipun super(); ditambahkan secara eksplisit? 
+4. Pada Modifikasi 2 terjadi error. Aturan apa yang dilanggar, dan mengapa Java menetapkan aturan tersebut? 
+5. Tuliskan urutan proses (bernomor) yang terjadi ketika new ClassC() dieksekusi, dimulai dari pemanggilan konstruktor ClassC hingga seluruh output tercetak. 
+
+### jawaban
+1. Superclass & Subclass:
+
+        ClassA berperan sebagai superclass dari ClassB.
+
+        ClassB berperan sebagai subclass dari ClassA sekaligus superclass dari ClassC.
+
+        ClassC berperan sebagai subclass dari ClassB.
+
+    ClassB Berperan Ganda: Karena ClassB berada di tengah hierarki pewarisan bertingkat (multilevel inheritance). ClassB merupakan subclass yang mewarisi ClassA (extends ClassA), tetapi di saat yang sama juga menjadi superclass bagi ClassC (ClassC extends ClassB).
+2. Saat sebuah objek dari subclass dibuat, Java wajib menginisialisasi bagian dari superclass-nya terlebih dahulu. Secara otomatis (implisit), Java akan menyisipkan perintah super() di baris pertama setiap konstruktor subclass untuk memanggil konstruktor milik superclass-nya. Panggilan ini berantai dari ClassC -> ClassB -> ClassA.
+3. Karena jika pemrogram tidak menuliskan pemanggilan super() secara eksplisit di baris pertama konstruktor subclass, kompiler Java secara implisit (otomatis) tetap akan menambahkan super() tanpa argumen (konstruktor default). Menulis super(); secara eksplisit hanya memperjelas apa yang sebenarnya sudah dilakukan oleh Java secara otomatis.
+4. Aturan yang Dilanggar: Pemanggilan super() harus menjadi baris/pernyataan pertama (first statement) di dalam sebuah konstruktor. Memindahkan super() ke baris setelah System.out.println(...) melanggar aturan ini sehingga menyebabkan compile-time error.
+
+    Alasan Java: Untuk memastikan bahwa superclass (ClassB) sudah terinisialisasi secara utuh dan sempurna sebelum subclass (ClassC) mengeksekusi instruksi kodenya sendiri. Hal ini mencegah terjadinya error akibat subclass mengakses komponen milik superclass yang belum siap.
+5. Program memanggil konstruktor ClassC().
+
+    Konstruktor ClassC() memanggil super() secara otomatis untuk menjalankan konstruktor ClassB().
+
+    Konstruktor ClassB() memanggil super() secara otomatis untuk menjalankan konstruktor ClassA().
+
+    Konstruktor ClassA() selesai dieksekusi dan mencetak output:
+
+    konstruktor A dijalankan
+
+    Eksekusi kembali ke konstruktor ClassB(), yang kemudian mencetak output:
+
+    konstruktor B dijalankan
+
+    Eksekusi kembali ke konstruktor ClassC(), yang kemudian mencetak output:
+
+    konstruktor C dijalankan
