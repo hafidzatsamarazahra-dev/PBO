@@ -194,3 +194,15 @@ hasil output
 hasil output
 
 <img src="Screenshot 2026-10-07 205959.png" width="50%">
+
+## Tugas 4
+1. Perbedaan Hubungan Is-A dan Has-A
+
+    - Is-A (Inheritance): Hubungan pewarisan di mana sebuah subclass merupakan bentuk spesifik dari superclass-nya (sebuah class "adalah sebuah" class lain). Contoh dari jobsheet: Dosen adalah sebuah Pegawai (Dosen extends Pegawai).   
+    
+    - Has-A (Aggregation/Composition): Hubungan kepemilikan di mana sebuah class menggunakan atau menyimpan objek dari class lain sebagai komponen/atributnya (sebuah class "memiliki" class lain). Contoh dari jobsheet: DaftarGaji memiliki kumpulan Pegawai (Pegawai[] listPegawai).
+2. - Member private milik superclass tidak diwariskan secara langsung dan hanya bisa diakses oleh subclass melalui method perantara seperti getter atau setter.   
+
+    - Member protected otomatis diwariskan dan dapat diakses secara langsung oleh subclass serta seluruh class di dalam package yang sama.   
+    
+    - Konstruktor tidak diwariskan ke subclass, namun konstruktor superclass harus dipanggil (baik secara otomatis maupun manual memakai perintah super()) sebagai baris/pernyataan pertama di dalam konstruktor subclass. 
