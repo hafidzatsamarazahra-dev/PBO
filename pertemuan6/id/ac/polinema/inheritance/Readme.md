@@ -188,3 +188,9 @@ hasil output
     Karena atribut channelAktif dideklarasikan dengan access modifier private pada class Televisi.   
     
     Sesuai aturan Encapsulation (pembungkusan data), variabel private hanya dapat diakses atau diubah dari dalam class Televisi itu sendiri. Class luar seperti MainTugas2 maupun subclass TelevisiModern tidak dapat mengubah nilainya secara langsung (tv.channelAktif = 20 akan menyebabkan compile error) dan hanya bisa mengakses/mengubahnya lewat method intermedian seperti pindahChannel() atau getChannelAktif().
+
+## Tugas 3
+
+hasil output
+
+<img src="Screenshot 2026-10-07 205959.png" width="50%">
