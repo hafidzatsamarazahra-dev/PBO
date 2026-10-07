@@ -130,3 +130,31 @@ Kata kunci super digunakan untuk merujuk secara eksplisit ke atribut milik super
     Eksekusi kembali ke konstruktor ClassC(), yang kemudian mencetak output:
 
     konstruktor C dijalankan
+
+## Pertanyaan Percobaan 5 
+1. Jelaskan fungsi super(merk, memory, cpu) pada konstruktor Desktop. Atribut apa saja yang diisi oleh baris tersebut, dan atribut apa yang diisi oleh baris berikutnya? 
+2. Pada Eksperimen 1, mengapa error muncul di sini, padahal pada Percobaan 4 super() juga tidak ditulis tetapi program tetap berjalan? 
+3. Method showInfo() ditulis di Komputer sekaligus di Desktop. Apa istilah untuk kondisi ini? Apa yang tercetak bila baris super.showInfo(); pada Desktop dihapus? 
+4. Pada Eksperimen 2, jelaskan perbedaan hasil kompilasi dengan dan tanpa @Override. Apa manfaat menuliskan @Override? 
+5. Tantangan. Buat class Workstation sebagai turunan Desktop dengan atribut gpu (String). Class ini harus menimpa showInfo() sehingga menampilkan seluruh informasi Desktop ditambah baris GPU. Ketika new Workstation(...) dibuat, konstruktor class apa saja yang terpanggil, dan dalam urutan apa? 
+
+### jawaban percobaan 5
+1. Fungsi super(merk, memory, cpu) dan Atribut yang Diisi:
+
+    Fungsi: Memanggil konstruktor berparameter milik superclass (Komputer) untuk menginisialisasi atribut-atribut yang diwarisi.
+
+    Atribut yang Diisi super(...): merk, kapasitasMemory, dan kecepatanCPU (dideklarasikan di Komputer).
+
+    Atribut yang Diisi Baris Berikutnya (this.printer = printer;): Atribut printer (dideklarasikan di Desktop).
+2. Pada Percobaan 4, superclass memiliki konstruktor default (tanpa parameter), sehingga Java dapat menyisipkan super() otomatis. Pada Percobaan 5, class Komputer hanya memiliki konstruktor berparameter dan tidak memiliki konstruktor default. Jika super(...) tidak ditulis secara eksplisit, Java akan mencoba memanggil super() tanpa parameter yang tidak ada di Komputer, sehingga terjadi error kompilasi.
+3. Istilah: Method Overriding (penimpaan method milik superclass oleh subclass).
+
+    Yang Tercetak Jika super.showInfo() Dihapus: Informasi Merk, Kapasitas memory, dan Kecepatan CPU tidak akan tercetak. Hanya informasi Printer : Canon yang akan tampil di konsol.
+4. Perbedaan Hasil Kompilasi: Kode tetap dapat dikompilasi dan berjalan sama baik dengan maupun tanpa @Override (selama nama dan parameter method cocok).
+
+    Manfaat Menulis @Override: Sebagai bentuk compile-time protection. Jika terjadi kesalahan ketik (typo) pada nama method atau parameternya di subclass, kompiler akan langsung memberi peringatan error. Selain itu, anotasi ini memperjelas dokumentasi kode bahwa method tersebut menimpa method milik induk.
+5. <img src="Screenshot 2026-10-07 203654.png" width="50%">
+
+    hasil output
+
+    <img src="Screenshot 2026-10-07 203840.png" width="50%">
