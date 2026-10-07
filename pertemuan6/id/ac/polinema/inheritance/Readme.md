@@ -170,3 +170,21 @@ hasil output
 Diperbolehkan karena konsep Polimorfisme (Polymorphism) dan hubungan pewarisan (IS-A Relationship). Karena class Dosen adalah subclass (turunan) dari Pegawai (Dosen extends Pegawai), maka secara otomatis objek Dosen dianggap sebagai tipe Pegawai juga. Tipe acuan superclass (Pegawai) selalu dapat menampung referensi dari objek subclass-nya (Dosen).
 2. Ketika printSemuaGaji() memanggil getGaji() pada objek Dosen, versi method milik class mana yang dijalankan?
 Versi method milik class Dosen yang dijalankan. Hal ini terjadi karena mekanisme Dynamic Method Dispatch (Polimorfisme Runtime). Karena Dosen melakukan override terhadap method getGaji(), Java akan mengeksekusi versi method yang paling spesifik berdasarkan tipe objek asli yang disimpan di memori (runtime type), yaitu Dosen.
+
+## Tugas 2
+
+hasil output
+
+<img src="Screenshot 2026-10-07 205100.png" width="50%">
+
+### Jawaban Uji Tambahan
+1. Hasil Saat Memanggil tv.pindahChannel(150):
+
+    Nilai channelAktif tetap 20 (tidak berubah menjadi 150).   
+    
+    Alasannya: Pada method pindahChannel(int channel), terdapat kondisi validasi if (channel >= 1 && channel <= jumlahChannel). Karena 150 melebihi jumlah channel maksimal (jumlahChannel = 100), perintah pengubahan channel diabaikan. 
+2. Mengapa channelAktif Tidak Dapat Diubah Langsung dari MainTugas2?
+
+    Karena atribut channelAktif dideklarasikan dengan access modifier private pada class Televisi.   
+    
+    Sesuai aturan Encapsulation (pembungkusan data), variabel private hanya dapat diakses atau diubah dari dalam class Televisi itu sendiri. Class luar seperti MainTugas2 maupun subclass TelevisiModern tidak dapat mengubah nilainya secara langsung (tv.channelAktif = 20 akan menyebabkan compile error) dan hanya bisa mengakses/mengubahnya lewat method intermedian seperti pindahChannel() atau getChannelAktif().
