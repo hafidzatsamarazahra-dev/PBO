@@ -158,3 +158,15 @@ Kata kunci super digunakan untuk merujuk secara eksplisit ke atribut milik super
     hasil output
 
     <img src="Screenshot 2026-10-07 203840.png" width="50%">
+
+## Tugas 1
+
+hasil output
+
+<img src="Screenshot 2026-10-07 204420.png" width="50%">
+
+### Jawaban Pertanyaan Analisis
+1. Mengapa array Pegawai[] dapat menampung objek Dosen?
+Diperbolehkan karena konsep Polimorfisme (Polymorphism) dan hubungan pewarisan (IS-A Relationship). Karena class Dosen adalah subclass (turunan) dari Pegawai (Dosen extends Pegawai), maka secara otomatis objek Dosen dianggap sebagai tipe Pegawai juga. Tipe acuan superclass (Pegawai) selalu dapat menampung referensi dari objek subclass-nya (Dosen).
+2. Ketika printSemuaGaji() memanggil getGaji() pada objek Dosen, versi method milik class mana yang dijalankan?
+Versi method milik class Dosen yang dijalankan. Hal ini terjadi karena mekanisme Dynamic Method Dispatch (Polimorfisme Runtime). Karena Dosen melakukan override terhadap method getGaji(), Java akan mengeksekusi versi method yang paling spesifik berdasarkan tipe objek asli yang disimpan di memori (runtime type), yaitu Dosen.
