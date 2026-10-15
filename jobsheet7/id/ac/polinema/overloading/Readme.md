@@ -241,3 +241,16 @@ Karena method tersebut perlu mengambil nilai gaji pokok asli milik kelas induk (
         Pesan Error: error: no suitable method found for keliling(int,double) (atau pesan bahwa metode tidak dapat diaplikasikan pada argumen tersebut).
 
         Alasan: Parameter kedua yang dikirimkan adalah 4.0 yang bertipe double. Di dalam class Segitiga, metode keliling dengan 2 parameter hanya menerima tipe data int (keliling(int sisiA, int sisiB)). Java tidak melakukan konversi otomatis secara sembarangan dari double ke int untuk menghindari kehilangan data (narrowing conversion), sehingga Java menganggap tidak ada metode yang cocok.
+
+## Tugas 2
+5. (a) Mengapa bernafas() pada objek Mahasiswa mencetak teks milik Manusia, sedangkan makan() tidak?
+
+        Metode bernafas() tidak di-override di kelas Mahasiswa, sehingga objek Mahasiswa mewarisi secara langsung perilaku asli dari kelas induknya (Manusia).
+        
+        Sebaliknya, metode makan() sudah di-override (ditulis ulang) secara spesifik di kelas Mahasiswa, sehingga program mengeksekusi versi baru yang ada di kelas Mahasiswa alih-alih milik induknya.
+    
+    (b) Bandingkan hasil makan() pada Dosen dan Mahasiswa, lalu jelaskan peran super.makan().
+    
+        Perbandingan: Pada objek Dosen, hasil cetaknya menggabungkan perilaku induk dan anak (Manusia makan nasi diikuti Dosen makan di kantin fakultas). Sedangkan pada objek Mahasiswa, hasil cetaknya langsung menggantikan tanpa membawa teks induk (Mahasiswa makan di kantin kampus saja).   
+        
+        Peran super.makan(): Digunakan di kelas Dosen untuk memanggil dan mengeksekusi terlebih dahulu metode makan() milik kelas induk (Manusia) sebelum mengeksekusi baris kode tambahan di kelas Dosen.
