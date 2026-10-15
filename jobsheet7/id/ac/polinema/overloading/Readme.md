@@ -254,3 +254,48 @@ Karena method tersebut perlu mengambil nilai gaji pokok asli milik kelas induk (
         Perbandingan: Pada objek Dosen, hasil cetaknya menggabungkan perilaku induk dan anak (Manusia makan nasi diikuti Dosen makan di kantin fakultas). Sedangkan pada objek Mahasiswa, hasil cetaknya langsung menggantikan tanpa membawa teks induk (Mahasiswa makan di kantin kampus saja).   
         
         Peran super.makan(): Digunakan di kelas Dosen untuk memanggil dan mengeksekusi terlebih dahulu metode makan() milik kelas induk (Manusia) sebelum mengeksekusi baris kode tambahan di kelas Dosen.
+
+## Tugas 3
+1. - Lokasi Terjadi
+
+        Overloading: Bisa terjadi di dalam satu kelas yang sama (same class), atau antara kelas induk dan kelas anak.
+
+        Overriding: Wajib terjadi antar kelas yang memiliki hubungan pewarisan (inheritance), yaitu antara kelas induk (superclasses) dan kelas anak (subclasses).
+
+    - Signature (Parameter)
+
+        Overloading: Wajib berbeda (bisa dari jumlah, tipe data, atau urutan parameternya), meskipun nama metodenya sama.
+
+        Overriding: Wajib sama persis (nama method dan parameternya tidak boleh diubah).
+
+    - Tipe Kembalian (Return Type)
+
+        Overloading: Boleh sama ataupun berbeda (karena penentunya adalah parameter, bukan tipe kembaliannya).
+
+        Overriding: Harus sama, atau berupa tipe data turunan yang kompatibel jika menggunakan covariant return type.
+
+    - Access Modifier
+
+        Overloading: Tidak terikat oleh aturan khusus; modifier bisa bebas diubah (public, private, protected, dll).
+
+        Overriding: Hak akses method pada kelas anak tidak boleh lebih ketat/lemah daripada method di kelas induknya (misal: jika induknya public, anak tidak boleh protected atau private).
+
+    - Peran @Override
+
+        Overloading: Tidak menggunakan anotasi @Override (jika dipakai justru akan memicu error kompilasi).
+
+        Overriding: Dianjurkan menggunakan anotasi @Override sebagai bentuk pengaman agar Java ikut memvalidasi kecocokan method dengan kelas induk.
+2. Kapan memilih Overloading:
+
+ Dipilih saat kita ingin membuat beberapa versi method dengan nama yang sama untuk melakukan fungsi yang mirip, tetapi menerima jenis atau jumlah data masukan yang berbeda.
+
+        Contoh dari jobsheet: Method keliling(int sisiA, int sisiB, int sisiC) dan keliling(int sisiA, int sisiB) pada class Segitiga, atau method getGaji(int jamLembur, double tarifLembur) dan getGaji() pada class Staff. 
+
+    Kapan memilih Overriding: Dipilih saat kita ingin mengubah atau menyesuaikan perilaku (behavior) dari sebuah method yang sudah diwarisi dari kelas induk agar sesuai dengan karakteristik khusus di kelas anak.
+    
+        Contoh dari jobsheet: Method makan() di dalam class Dosen dan Mahasiswa yang meng-override method makan() milik kelas Manusia.   
+3. static: Bersifat terikat pada tingkat kelas (class-level), bukan pada objek instansiasi, sehingga tidak dapat di-override secara polimorfik (melainkan hanya bisa di-hiding atau disembunyikan).
+
+    private: Bersifat tertutup dan hanya bisa diakses di dalam kelas aslinya saja, sehingga tidak diwariskan ke kelas anak dan tidak bisa dikenali atau di-override.
+
+    final: Secara sengaja dikunci oleh pembuatnya agar tidak bisa diubah, dimodifikasi, ataupun di-override lagi oleh kelas turunan manapun.
