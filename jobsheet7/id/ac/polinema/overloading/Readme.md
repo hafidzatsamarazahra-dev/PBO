@@ -47,3 +47,63 @@ tidak?
 2. Versi yang dipanggil adalah kali(double, double) karena angka desimal secara default di Java bertipe double. Versi int tidak dipanggil karena Java tidak mengizinkan konversi otomatis dari double ke int untuk menghindari kehilangan presisi data.
 3. Perbedaan urutan parameter pada tampilkan() sah karena Java mengidentifikasi pemanggilan method berdasarkan method signature (urutan dan tipe parameter). Sebaliknya, beda return type atau sekadar nama parameter tidak sah karena tidak masuk dalam method signature, sehingga compiler kebingungan membedakan method saat dipanggil.
 4. Pemanggilan kali(5, 2.5) berhasil menghasilkan 12.5 karena Java melakukan automatic type promotion, yaitu secara otomatis mempromosikan nilai 5 (int) menjadi 5.0 (double) sehingga cocok diproses oleh method kali(double, double)
+
+## Langkah 2 percobaan 2
+1. Prediksi: tampil(long) : 5
+
+    Hasil sebenarnya: tampil(long) : 5
+2. Prediksi: tampil(long) : 5L
+
+    Hasil sebenarnya: tampil(long) : 5
+3. Prediksi: tampil(Integer) : 7
+
+    Hasil sebenarnya: tampil(Integer) : 7
+4. Prediksi: tampil(Object) : 3.5
+
+    Hasil sebenarnya: tampil(Object) : 3.5
+5. Prediksi: tampil(Object) : Java
+
+    Hasil sebenarnya: tampil(Object) : Java
+6. Prediksi: tampil(int...) : 0 elemen
+
+    Hasil sebenarnya: tampil(int...) : 0 elemen
+7. Prediksi: tampil(int...) : 3 elemen
+
+    Hasil sebenarnya: tampil(int...) : 3 elemen
+
+## langkah 3 percobaan 2
+1. Overload yang dipanggil: tampil(long)
+
+    Alasan: Java lebih milih konversi pelebaran (widening dari int ke long) ketimbang boxing atau varargs.
+2. Overload yang dipanggil: tampil(Integer)
+
+    Alasan: Karena tampil(long) udah mati, Java lanjut ke pilihan prioritas berikutnya, yaitu boxing (int dibungkus jadi objek Integer).
+3. Overload yang dipanggil: tampil(Object)
+
+    Alasan: Karena long dan Integer nggak ada, Java melakukan boxing jadi Double/Number/Integer (atau naik ke Object lewat hierarki kelas/supertype) untuk menampungnya. Note: Di Java, int enggak bisa langsung dibungkus jadi Double (karena beda tipe wrapper), tapi karena hierarki, tipe dasarnya bisa masuk ke Object.
+4. Overload yang dipanggil: tampil(int...)
+
+    Alasan: Ini jalur terakhir (fallback). Karena semua metode spesifik udah mati, mau enggak mau Java lari ke varargs (int...) yang prioritasnya paling bawah.
+
+## Pertanyaan Percobaan 2
+1. Mengapa tampil(5) memilih tampil(long) dan bukan tampil(Integer), padahal 5 dapat
+di-boxing? Sebutkan fase yang menentukan.
+2. Jelaskan perpindahan overload pada tiap baris tabel Langkah 3.
+3. Mengapa tampilLong(5) gagal, sedangkan tampil(5) dapat berakhir pada tampil(Object)
+bila overload lain dikomentari?
+4. Tantangan. Tanpa menjalankan, prediksi output Resolusi.tampil((short) 3) dan
+Resolusi.tampil('A'), lalu buktikan.
+
+### jawaban percobaan 2
+1. Fase yang menentukan: Fase Overload Resolution di Java, khususnya aturan prioritas konversi (widening lebih diutamakan daripada boxing).
+
+    Alasan: Angka 5 adalah literal bertipe int. Berdasarkan aturan resolusi metode Java, primitive widening (memperluas tipe data primitif dari int ke long) memiliki prioritas yang lebih tinggi dibandingkan proses boxing (mengubah primitif int menjadi objek pembungkus Integer). Oleh karena itu, Java lebih memilih tampil(long) daripada tampil(Integer).
+2. Semua aktif: Pilih long (karena widening prioritas tertinggi).
+
+    long mati: Turun ke boxing (Integer).
+
+    long & Integer mati: Naik ke kelas induknya (Object).
+
+    Semua mati: Lari ke pilihan terakhir (varargs int...).
+3. Java tidak bisa menggabung dua konversi sekaligus (misal widening + boxing ke Long). Parameter Long butuh tipe pas, sedangkan Object bisa menampung apa saja lewat boxing/widening lalu naik ke hirarki atas.
+4. <img src="Screenshot 2026-10-15 140611.png" width="50%">
