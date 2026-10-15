@@ -226,3 +226,18 @@ Karena method tersebut perlu mengambil nilai gaji pokok asli milik kelas induk (
         Atribut pembuksinya: Atribut private Staff[] bawahan; di dalam class Manager, yang menunjukkan bahwa seorang Manager memiliki daftar objek Staff sebagai bawahannya.
 
     Dibandingkan dengan hubungan Manager dengan Karyawan: Hubungan Manager dengan Karyawan adalah Is-A (Inheritance/Pewarisan, menggunakan extends Karyawan), yang berarti Manager adalah bentuk spesifik dari Karyawan.
+
+## Tugas 1
+3. (a) keliling(3, 4, 5) dan keliling(3, 4) bertipe kembalian berbeda (int vs double). Apakah itu yang membuatnya sah sebagai overloading? Apa pembeda sebenarnya?
+
+        Bukan itu penentunya. Tipe kembalian (return type) yang berbeda tidak membuat suatu metode menjadi overloading.
+
+        Pembeda sebenarnya: Overloading sah karena adanya perbedaan parameter (jumlah, tipe data, atau urutan parameter), yaitu metode pertama menerima 3 parameter (int, int, int) sedangkan metode kedua menerima 2 parameter (int, int). Di Java, perubahan tipe kembalian saja tidak cukup untuk melakukan overloading jika parameternya sama persis.
+
+    (b) Apa yang terjadi bila t.keliling(3, 4.0) dipanggil? Tuliskan pesan error dan alasannya.
+
+        Terjadi Error Kompilasi.
+
+        Pesan Error: error: no suitable method found for keliling(int,double) (atau pesan bahwa metode tidak dapat diaplikasikan pada argumen tersebut).
+
+        Alasan: Parameter kedua yang dikirimkan adalah 4.0 yang bertipe double. Di dalam class Segitiga, metode keliling dengan 2 parameter hanya menerima tipe data int (keliling(int sisiA, int sisiB)). Java tidak melakukan konversi otomatis secara sembarangan dari double ke int untuk menghindari kehilangan data (narrowing conversion), sehingga Java menganggap tidak ada metode yang cocok.
