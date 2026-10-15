@@ -135,3 +135,43 @@ konstruktor dijalankan.
     hasil output:
 
     <img src="Screenshot 2026-10-15 142131.png" width="50%">
+
+## Langkah 4: Eksperimen, langgar aturan overriding
+1. attempting to assign weaker access privileges; was public
+2. overridden method is final
+3. method does not override or implement a method from a supertype
+4. overridden method does not throw Exception
+
+## Pertanyaan Percobaan 4
+1. Bandingkan a.swim() dan c.swim(). Apa peran super.swim(), dan apa yang tercetak bila
+baris itu dihapus?
+2. Apa manfaat covariant return pada beranak()? Apakah Piranha anak = a.beranak();
+valid? Mengapa?
+3. Untuk tiap baris tabel Langkah 4, sebutkan aturan overriding yang dilanggar.
+4. Pada baris ketiga tabel, apa yang terjadi bila @Override dihapus? Apakah swim(int)
+overriding atau overloading?
+5. Tantangan. Jika swim() di Ikan dibuat private dan Piranha memiliki @Override public
+void swim(), apa yang terjadi? Mengapa?
+
+### jawaban percobaan 4
+1. Perbandingan: a.swim() memanggil metode swim() milik kelas Ikan (mencetak "Ikan bisa berenang"). Sedangkan c.swim() menjalankan metode yang sudah dioverride di kelas Piranha.
+
+    Peran super.swim(): Memanggil dan mengeksekusi metode swim() milik kelas induk (Ikan) terlebih dahulu sebelum mengeksekusi baris kode berikutnya di kelas anak.
+
+    Bila baris super.swim() dihapus: Teks "Ikan bisa berenang" tidak akan tercetak, dan output c.swim() hanya akan mencetak "Piranha bisa makan daging".
+2. Manfaat covariant return: Memungkinkan metode di kelas turunan mengembalikan tipe data objek yang lebih spesifik (subkelasnya sendiri, yaitu Piranha) dibanding tipe data aslinya di kelas induk (Ikan), tanpa perlu melakukan casting manual.
+
+    Apakah Piranha anak = a.beranak(); valid? Tidak valid.
+
+    Alasan: Variabel a dideklarasikan bertipe Ikan. Meskipun objek aslinya Piranha, metode beranak() dilihat dari tipe referensinya (Ikan), yang mengembalikan objek bertipe Ikan. Menyimpan objek Ikan ke dalam variabel bertipe Piranha akan memicu error kompilasi karena butuh downcasting eksplisit (Piranha).
+3. Baris 1 (Hapus public): Melanggar aturan Visibilitas Akses (Access Modifiers), yaitu hak akses tidak boleh lebih lemah/terbatas daripada kelas induknya.
+
+    Baris 2 (Tambah final di induk): Melanggar aturan Final Method, yaitu metode yang bersifat final dilarang untuk di-override.
+
+    Baris 3 (Ubah jadi swim(int jarak)): Melanggar aturan Kecocokan Signature Metode, karena anotasi @Override memaksa kecocokan nama dan parameter, sedangkan pengubahan parameter mengubahnya menjadi overloading, bukan overriding.
+
+    Baris 4 (Tambah throws Exception): Melanggar aturan Exception Handling pada Overriding, di mana metode turunan tidak boleh mendeklarasikan checked exception baru yang lebih luas dari kelas induknya.
+4. Bila @Override dihapus: Kode akan lolos kompilasi (berhasil dijalankan). Saat c.swim() dipanggil, program akan menjalankan versi milik Ikan (karena c.swim() tanpa parameter tidak cocok dengan swim(int)).
+
+    Apakah overriding atau overloading? Itu adalah overloading (karena memiliki nama yang sama tetapi parameter atau signature-nya berbeda).
+5. Terjadi error kompilasi. Metode dengan akses private bersifat rahasia dan tidak diwariskan (not inherited) ke kelas anak. Oleh karena itu, kelas Piranha tidak sedang meng-override metode apa pun dari kelas induknya, sehingga anotasi @Override akan menolak dan memunculkan error bahwa metode tersebut tidak mengimplementasikan metode dari supertype.
