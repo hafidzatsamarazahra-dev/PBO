@@ -107,3 +107,31 @@ Resolusi.tampil('A'), lalu buktikan.
     Semua mati: Lari ke pilihan terakhir (varargs int...).
 3. Java tidak bisa menggabung dua konversi sekaligus (misal widening + boxing ke Long). Parameter Long butuh tipe pas, sedangkan Object bisa menampung apa saja lewat boxing/widening lalu naik ke hirarki atas.
 4. <img src="Screenshot 2026-10-15 140611.png" width="50%">
+
+## Pertanyaan Percobaan 3
+1. Mengapa Konstruktor 2 parameter selesai tercetak lebih dulu daripada Konstruktor 1
+parameter selesai pada new Kucing("Tom")?
+2. Apa keuntungan this(nama, 1) dibandingkan menyalin isi konstruktor kedua ke
+konstruktor pertama?
+3. Tambahkan public Kucing() yang memanggil this("Tanpa Nama") dan mencetak
+Konstruktor 0 parameter selesai. Tuliskan output new Kucing() serta urutan ketiga
+konstruktor dijalankan.
+
+### jawaban percobaan 3
+1. Karena di dalam konstruktor 1 parameter terdapat baris this(nama, 1); yang memanggil konstruktor 2 parameter terlebih dahulu. Proses eksekusi menyelesaikan konstruktor yang dipanggil lewat this(...) di dalam, baru setelah itu mencetak baris sisa di konstruktor 1 parameter.
+2. Reusability (Penggunaan ulang kode): Menghindari duplikasi kode (DRY - Don't Repeat Yourself). Kalau ada perubahan logika di masa depan (misal nambah validasi), kita cukup ubah di satu tempat saja (di konstruktor 2 parameter).
+3. kode tambahan:
+
+    public Kucing() {
+        this("Tanpa Nama");
+        System.out.println("Konstruktor 0 parameter selesai");
+    }
+
+    dan
+
+     Kucing c = new Kucing();
+        c.info();
+
+    hasil output:
+
+    <img src="Screenshot 2026-10-15 142131.png" width="50%">
