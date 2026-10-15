@@ -175,3 +175,54 @@ void swim(), apa yang terjadi? Mengapa?
 
     Apakah overriding atau overloading? Itu adalah overloading (karena memiliki nama yang sama tetapi parameter atau signature-nya berbeda).
 5. Terjadi error kompilasi. Metode dengan akses private bersifat rahasia dan tidak diwariskan (not inherited) ke kelas anak. Oleh karena itu, kelas Piranha tidak sedang meng-override metode apa pun dari kelas induknya, sehingga anotasi @Override akan menolak dan memunculkan error bahwa metode tersebut tidak mengimplementasikan metode dari supertype.
+
+## Pertanyaan Percobaan 5
+1. Tunjuk method yang termasuk overloading dan yang termasuk overriding pada ketiga class
+(sebutkan class dan signature-nya), dan jelaskan pembeda masing-masing.
+2. Mengapa getGaji(int, double) memakai super.getGaji(), sedangkan getGaji() pada
+Staff memanggil getGaji(jamLembur, tarifLembur)? Apa yang terjadi bila isi
+getGaji(int, double) diganti return getGaji() + jamLembur * tarifLembur;?
+3. Apa akibatnya pada gaji Staff bila getGaji() di Staff ditulis return jamLembur *
+tarifLembur;? Apakah gaji Manager ikut berubah?
+4. Apa hubungan Manager dengan Staff (is-a atau has-a)? Tunjuk atributnya dan bandingkan
+dengan hubungan Manager dengan Karyawan.
+
+### jawaban percobaan 5
+1. Overloading:
+    
+        Class: Staff
+        
+        Signature: public double getGaji(int jamLembur, double tarifLembur)
+        
+        Pembeda: Method ini memiliki nama yang sama dengan getGaji() milik supertype (Karyawan), tetapi memiliki parameter yang berbeda (menerima 2 parameter).
+    
+    Overriding:
+    
+        Class: Staff - Signature: public double getGaji()
+        
+        Class: Manager - Signature: public double getGaji()
+        
+        Class: Staff - Signature: public void lihatInfo()
+        
+        Class: Manager $- Signature: public void lihatInfo()
+        
+        Pembeda: Method-method ini memiliki nama dan signature (parameter) yang sama persis dengan method yang ada di kelas induknya (Karyawan), namun diimplementasikan ulang untuk menyesuaikan kebutuhan kelas anak.
+2. Mengapa getGaji(int, double) memakai super.getGaji()?
+
+Karena method tersebut perlu mengambil nilai gaji pokok asli milik kelas induk (Karyawan) terlebih dahulu, lalu menjumlahkannya dengan hasil perhitungan lembur.
+
+    Mengapa getGaji() memanggil getGaji(jamLembur, tarifLembur)?
+
+    Untuk memanfaatkan method overloaded yang sudah ada, sehingga perhitungan gaji total (gaji pokok + lembur) bisa dipusatkan di satu tempat tanpa menulis ulang rumusnya.
+
+    Apa yang terjadi bila isi getGaji(int, double) diganti return getGaji() + jamLembur * tarifLembur;?
+
+    Terjadi rekursif tak terbatas (infinite recursion) yang berujung pada error StackOverflowError. Alasannya, pemanggilan getGaji() di dalam kelas Staff akan merujuk ke method getGaji() milik kelas Staff itu sendiri secara terus-menerus, bukan mengambil gaji pokok dari kelas Karyawan.
+3. Akibat pada gaji Staff: Jika isinya diganti menjadi return jamLembur * tarifLembur;, maka gaji pokok Staff tidak akan dihitung lagi. Gaji yang diterima Staff hanya akan sebesar uang lemburnya saja (gaji pokoknya hilang/tidak masuk hitungan).
+
+    Apakah gaji Manager ikut berubah? Tidak ikut berubah. Manager memiliki implementasi getGaji() sendiri yang memanggil super.getGaji() + tunjangan, sehingga perhitungannya tidak terpengaruh oleh perubahan method di kelas Staff.
+4. Hubungan Manager dengan Staff: Hubungannya adalah Has-A (Agregasi/Asosiasi).
+
+        Atribut pembuksinya: Atribut private Staff[] bawahan; di dalam class Manager, yang menunjukkan bahwa seorang Manager memiliki daftar objek Staff sebagai bawahannya.
+
+    Dibandingkan dengan hubungan Manager dengan Karyawan: Hubungan Manager dengan Karyawan adalah Is-A (Inheritance/Pewarisan, menggunakan extends Karyawan), yang berarti Manager adalah bentuk spesifik dari Karyawan.
