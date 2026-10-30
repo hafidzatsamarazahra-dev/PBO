@@ -37,3 +37,25 @@ dilanggar.
 4. Hasil: Gagal kompilasi (Error).
 
     Penjelasan: Aturan yang dilanggar adalah class biasa (non-abstract) dilarang memiliki abstract method. Karena deklarasi class Ikan bukan public abstract class Ikan, ia tidak boleh menampung method abstrak. Pilihannya, class Ikan harus diubah jadi abstract, atau method bernapas() harus langsung diberi isi (implementasi).
+
+## Pertanyaan Percobaan 2
+1. Mengapa pada langkah 7 terjadi error? Tuliskan pesan error-nya dan jelaskan bagaimana
+Anda memperbaikinya.
+2. Dapatkah method kuliahDiKampus() dipanggil dari objek sarjanaCumlaude di class
+Program? Mengapa demikian?
+3. Dapatkah method kuliahDiKampus() dipanggil dari parameter mahasiswaCumlaude di
+method beriSertifikatCumlaude() pada class Rektor? Mengapa demikian?
+4. Hapus kata kunci public pada method lulus() di class Sarjana. Tunjukkan hasil
+kompilasinya dan jelaskan, lalu kembalikan seperti semula
+
+### Jawaban percobaan 2
+1. Penyebab Error: Baris tersebut mencoba mengirim objek mhsBiasa (yang bertipe Mahasiswa) ke dalam method beriSertifikatCumlaude(ICumlaude mahasiswaCumlaude). Method ini membutuhkan parameter bertipe interface ICumlaude, sedangkan class Mahasiswa tidak mengimplementasikan interface tersebut.
+
+    Pesan Error (Tipikal Compiler Java):Error: incompatible types: Mahasiswa cannot be converted to ICumlaude
+
+    Cara Memperbaiki: Menghapus atau mengomentari baris pembuatan objek mhsBiasa beserta pemanggilan method pakRektor.beriSertifikatCumlaude(mhsBiasa) di dalam class Program.
+2. Bisa. Class Sarjana melakukan inheritance (pewarisan) dengan meng-extend class Mahasiswa. Meskipun class Sarjana juga mengimplementasikan interface ICumlaude, ia tetap mewarisi semua atribut dan method yang ada di class induknya (Mahasiswa), termasuk method kuliahDiKampus().
+3. Tidak bisa. Parameter mahasiswaCumlaude di dalam method beriSertifikatCumlaude() bertipe data ICumlaude (sebuah interface). Interface ICumlaude hanya mendefinisikan method lulus() dan meraihIPKTinggi(). Method kuliahDiKampus() berada di class Mahasiswa, yang tidak dideklarasikan di dalam interface ICumlaude. Akibatnya, compiler akan menganggap method tersebut tidak dikenal oleh tipe data interface tersebut.
+4. <img src="Screenshot 2026-10-30 091931.png" width="50%">
+
+    Gagal kompilasi (Error). Ketika sebuah class mengimplementasikan sebuah interface, semua method dari interface tersebut secara implisit bersifat public. Berdasarkan aturan overriding di Java, visibilitas access modifier pada subclass tidak boleh lebih membatasi daripada parent atau interface aslinya. Mengubah method lulus() menjadi default (tanpa modifier) memperketat aksesnya, sehingga Java menolaknya dengan pesan error bahwa attempting to assign weaker access privileges (package-private vs public).
