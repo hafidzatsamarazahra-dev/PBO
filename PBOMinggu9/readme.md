@@ -59,3 +59,118 @@ kompilasinya dan jelaskan, lalu kembalikan seperti semula
 4. <img src="Screenshot 2026-10-30 091931.png" width="50%">
 
     Gagal kompilasi (Error). Ketika sebuah class mengimplementasikan sebuah interface, semua method dari interface tersebut secara implisit bersifat public. Berdasarkan aturan overriding di Java, visibilitas access modifier pada subclass tidak boleh lebih membatasi daripada parent atau interface aslinya. Mengubah method lulus() menjadi default (tanpa modifier) memperketat aksesnya, sehingga Java menolaknya dengan pesan error bahwa attempting to assign weaker access privileges (package-private vs public).
+
+## Pertanyaan Percobaan 3
+1. Pada interface IBerprestasi, ganti modifier public pada method
+menjuaraiKompetisi() menjadi protected dan pada method
+membuatPublikasiIlmiah() menjadi private. Apa yang terjadi? Jelaskan alasannya
+(sertakan capture hasilnya), lalu kembalikan seperti semula.
+2. Tambahkan baris IBerprestasi prestasi = new IBerprestasi(); pada method
+main(). Mengapa baris tersebut error?
+3. Apabila Sarjana Berprestasi harus menjuarai kompetisi NASIONAL dan menerbitkan
+artikel di jurnal NASIONAL, modifikasilah class-class yang terkait agar di class Program
+objek pakRektor dapat memberikan sertifikat mawapres kepada objek sarjanaCumlaude.
+
+### jawaban percobaan 3
+1. <img src="Screenshot 2026-11-05 211838.png" width="50%">
+
+    Keduanya error. 
+    
+    Alasannya:
+
+    Interface adalah kontrak yang harus bisa dipanggil dari luar dan di-override oleh class yang meng-implement-nya. Karena itu method abstract di interface otomatis public.
+    protected membatasi akses hanya untuk package dan turunan. Itu bertentangan dengan fungsi interface. Contohnya, Rektor memanggil m.menjuaraiKompetisi() dari class lain.
+    private membuat method tidak terlihat oleh class pelaksana, sehingga tidak mungkin di-override. Ini bertentangan dengan sifat method abstract. Mulai Java 9, private di interface hanya boleh untuk method yang punya isi (helper), bukan method abstract.
+2. <img src="Screenshot 2026-11-05 212356.png" width="50%">
+
+    Baris ini error dengan pesan Cannot instantiate the type IBerprestasi. Interface hanya berisi method abstract tanpa implementasi, jadi tidak bisa dibuat objeknya langsung. Objek hanya bisa dibuat dari class konkret yang meng-implement interface itu. Variabel bertipe interface boleh dipakai, tetapi diisi dengan objek class pelaksana:
+3. class sarjana
+    
+    package PBOMinggu9.interfacelatihan;
+
+    public class Sarjana extends Mahasiswa implements ICumlaude, IBerprestasi {
+        public Sarjana(String nama) {
+            super(nama);
+        }
+
+        @Override
+        public void lulus() {
+            System.out.println("Aku sudah menyelesaikan SKRIPSI");
+        }
+
+        @Override
+        public void meraihIPKTinggi() {
+            System.out.println("IPK-ku lebih dari 3,51");
+        }
+
+        @Override
+        public void menjuaraiKompetisi() {
+            System.out.println("Saya telah menjuarai kompetisi NASIONAL");
+        }
+
+        @Override
+        public void membuatPublikasiIlmiah() {
+            System.out.println("Saya menerbitkan artikel di jurnal NASIONAL");
+        }
+        }
+
+    class pascaSarjana
+
+        package PBOMinggu9.interfacelatihan;
+
+    public class PascaSarjana extends Mahasiswa implements ICumlaude, IBerprestasi {
+        public PascaSarjana(String nama) {
+            super(nama);
+        }
+
+        @Override
+        public void lulus() {
+            System.out.println("Aku sudah menyelesaikan TESIS");
+        }
+
+        @Override
+        public void meraihIPKTinggi() {
+            System.out.println("IPK-ku lebih dari 3,71");
+        }
+
+        @Override
+        public void menjuaraiKompetisi() {
+            System.out.println("Saya telah menjuarai kompetisi INTERNASIONAL");
+        }
+
+        @Override
+        public void membuatPublikasiIlmiah() {
+            System.out.println("Saya menerbitkan artikel di jurnal INTERNASIONAL");
+        }
+        }
+
+    class rektor
+
+        package PBOMinggu9.interfacelatihan;
+
+    public class Rektor {
+        public void beriSertifikatMawapres(IBerprestasi m) {
+            System.out.println("Saya REKTOR, memberikan sertifikat MAWAPRES. Selamat!");
+            System.out.println("Bagaimana Anda bisa berprestasi?");
+            m.menjuaraiKompetisi();
+            m.membuatPublikasiIlmiah();
+            System.out.println("----------------------------------------");
+        }
+    }
+
+    class proram
+
+        package PBOMinggu9.interfacelatihan;
+
+    public class Program {
+        public static void main(String[] args) {
+            Rektor pakRektor = new Rektor();
+            Sarjana sarjanaCumlaude = new Sarjana("Andi");
+            PascaSarjana pascaSarjanaCumlaude = new PascaSarjana("Budi");
+
+            pakRektor.beriSertifikatMawapres(sarjanaCumlaude);
+            pakRektor.beriSertifikatMawapres(pascaSarjanaCumlaude);
+        }
+    }
+
+    

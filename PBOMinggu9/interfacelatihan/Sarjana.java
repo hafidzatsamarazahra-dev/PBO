@@ -16,12 +16,12 @@ public class Sarjana extends Mahasiswa implements ICumlaude, IBerprestasi {
     }
 
     @Override
-    public void membuatPublikasiIlmiah() {
-        System.out.println("Saya menerbitkan artikel di jurnal INTERNASIONAL");
+    public void menjuaraiKompetisi() {
+        System.out.println("Saya telah menjuarai kompetisi NASIONAL");
     }
 
     @Override
-    public void menjuaraiKompetisi() {
-        System.out.println("Saya telah menjuarai kompetisi INTERNASIONAL");
+    public void membuatPublikasiIlmiah() {
+        System.out.println("Saya menerbitkan artikel di jurnal NASIONAL");
     }
 }
