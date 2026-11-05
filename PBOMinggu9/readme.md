@@ -173,4 +173,99 @@ objek pakRektor dapat memberikan sertifikat mawapres kepada objek sarjanaCumlaud
         }
     }
 
-    
+
+## Tugas
+
+class Keledai
+
+<img src="Screenshot 2026-11-05 214144.png" width="50%">
+
+    Class Keledai mewarisi class Binatang dan mengimplementasikan interface IHerbivora. Keledai termasuk herbivora karena hanya mengonsumsi tumbuhan.
+
+class IKarnivora
+
+<img src="Screenshot 2026-11-05 214138.png" width="50%">
+
+    Interface IKarnivora digunakan untuk mendefinisikan karakteristik hewan pemakan daging. Interface ini memiliki method displayMakan().
+
+class IHerbivora
+
+<img src="Screenshot 2026-11-05 214132.png" width="50%">
+
+    Interface IHerbivora digunakan untuk mendefinisikan karakteristik hewan pemakan tumbuhan. Interface ini juga memiliki method displayMakan().
+
+class Gorilla
+
+<img src="Screenshot 2026-11-05 214126.png" width="50%">
+
+    Class Gorilla mewarisi class Binatang dan mengimplementasikan dua interface, yaitu IKarnivora dan IHerbivora. Hal tersebut menunjukkan bahwa Gorilla termasuk omnivora karena dapat mengonsumsi daging dan tumbuhan.
+
+class Binatang
+
+<img src="Screenshot 2026-11-05 214119.png" width="50%">
+
+    Abstract class Binatang merupakan kelas induk yang digunakan oleh ketiga class hewan. Class ini memiliki atribut nama dan jmlKaki. Selain itu, terdapat constructor, setter, getter, dan method displayBinatang() untuk menampilkan identitas hewan.
+
+class Demo
+
+<img src="Screenshot 2026-11-05 214112.png" width="50%">
+
+    Class Demo merupakan class utama yang memiliki method main(). Class ini digunakan untuk membuat objek Keledai, Gorilla, dan Singa, kemudian memanggil method untuk menampilkan karakteristik masing-masing hewan.
+
+class Singa
+
+<img src="Screenshot 2026-11-05 214150.png" width="50%">
+
+    Class Singa mewarisi class Binatang dan mengimplementasikan interface IKarnivora. Singa termasuk karnivora karena hanya mengonsumsi daging.
+
+hasil output
+
+<img src="Screenshot 2026-11-05 214052.png" width="50%">
+
++---------------------------+
+|      <<abstract>>         |
+|         Binatang          |
++---------------------------+
+| # String nama             |
+| # int jmlKaki             |
++---------------------------+
+| + Binatang(String, int)   |
+| + setNama(String)         |
+| + getNama() String        |
+| + setJmlKaki(int)          |
+| + getJmlKaki() int        |
+| + displayBinatang() void  |
++---------------------------+
+              ^
+              | extends
+      +-------+-------+
+      |       |       |
+      |       |       |
++-----------+ +-----------+ +-----------+
+|   Singa   | |  Keledai  | |  Gorilla  |
++-----------+ +-----------+ +-----------+
+| - String  | | - String  | | - String  |
+|   suara   | |   suara   | |   suara   |
+| - String  | | - String  | | - String  |
+|   warnaBulu| |  warnaBulu| | warnaBulu |
++-----------+ +-----------+ +-----------+
+| +display  | | +display  | | +display  |
+|  Makan()  | |  Makan()  | |  Makan()  |
+| +display  | | +display  | | +display  |
+|  Data()   | |  Data()   | |  Data()   |
++-----------+ +-----------+ +-----------+
+      |             |          / 
+      |             |         /   
+      v             v        v     
++-------------+ +-------------+
+|<<interface>>| |<<interface>>|
+| IKarnivora  | | IHerbivora  |
++-------------+ +-------------+
+| +display    | | +display    |
+|  Makan()    | |  Makan()    |
++-------------+ +-------------+
+
+Singa   --implements--> IKarnivora
+Keledai --implements--> IHerbivora
+Gorilla --implements--> IKarnivora
+Gorilla --implements--> IHerbivora
