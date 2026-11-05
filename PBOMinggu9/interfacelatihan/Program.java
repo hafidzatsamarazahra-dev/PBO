@@ -7,7 +7,9 @@ public class Program {
  Sarjana sarjanaCumlaude = new Sarjana("Dini");
  PascaSarjana masterCumlaude = new PascaSarjana("Elok");
 //  pakRektor.beriSertifikatCumlaude(mhsBiasa);
- pakRektor.beriSertifikatCumlaude(sarjanaCumlaude);
- pakRektor.beriSertifikatCumlaude(masterCumlaude);
+//  pakRektor.beriSertifikatCumlaude(sarjanaCumlaude);
+//  pakRektor.beriSertifikatCumlaude(masterCumlaude);
+ pakRektor.beriSertifikatMawapres(sarjanaCumlaude);
+ pakRektor.beriSertifikatMawapres(masterCumlaude);
  }
 }
