@@ -28,5 +28,6 @@ bagaimana perbaikan singkatnya?
 
 ### Jawaban sesi 2
 1. Ketika getTotalFee() dipanggil, program akan mengalami UnsupportedOperationException karena method tersebut memanggil calculateFee() pada setiap paket. 
-    Hal ini melanggar prinsip Liskov Substitution Principle (LSP) karena FreeShipment tidak dapat menggantikan Shipment sebagaimana mestinya. Perbaikannya adalah membuat FreeShipment mengembalikan nilai 0 pada calculateFee() sehingga tetap dapat digunakan tanpa menyebabkan error.
+    Hal ini melanggar prinsip Liskov Substitution Principle (LSP) karena FreeShipment tidak dapat menggantikan Shipment sebagaimana mestinya. 
+    Perbaikannya adalah membuat FreeShipment mengembalikan nilai 0 pada calculateFee() sehingga tetap dapat digunakan tanpa menyebabkan error.
 
