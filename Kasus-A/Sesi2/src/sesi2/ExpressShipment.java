@@ -1,6 +1,9 @@
+
 package sesi2;
 
-public class ExpressShipment extends Shipment implements Trackable, Insurable {
+public class ExpressShipment extends Shipment
+        implements Trackable, Insurable {
+
     private int declaredValue;
 
     public ExpressShipment(String code, int weight, int declaredValue) {
@@ -20,7 +23,12 @@ public class ExpressShipment extends Shipment implements Trackable, Insurable {
 
     @Override
     public int getInsuranceFee() {
-        return declaredValue / 100;      // asuransi 1% dari nilai
+        return declaredValue / 100;
+    }
+
+   @Override
+    public int calculateMemberDiscount() {
+        return calculateFee() * 10 / 100;
     }
 
     @Override

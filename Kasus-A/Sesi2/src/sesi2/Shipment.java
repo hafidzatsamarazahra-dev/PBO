@@ -1,3 +1,4 @@
+
 package sesi2;
 
 public abstract class Shipment {
@@ -19,7 +20,12 @@ public abstract class Shipment {
 
     public abstract int calculateFee();
 
+    public int calculateMemberDiscount() {
+    return 0;
+    }
+
     public String getInfo() {
-        return code + " | " + weight + " kg | Biaya: Rp" + calculateFee();
+        return code + " | " + weight + " kg | Biaya: Rp"
+                + calculateFee();
     }
 }

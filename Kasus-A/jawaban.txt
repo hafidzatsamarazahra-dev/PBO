@@ -18,3 +18,15 @@ interface?
 2. Karena tidak semua jenis paket memiliki kemampuan yang sama. 
     Paket reguler tidak dapat dilacak maupun diasuransikan, sedangkan paket ekspres memiliki kedua kemampuan tersebut dan paket kargo hanya dapat dilacak. 
     Dengan interface terpisah, setiap jenis paket dapat menerapkan kemampuan sesuai kebutuhannya.
+
+## Pertanyaan sesi 2
+1. Seorang rekan membuat FreeShipment extends Shipment untuk paket promo gratis
+dan meng-override calculateFee() dengan throw new
+UnsupportedOperationException() . Apa yang terjadi ketika getTotalFee()
+dipanggil pada loket yang berisi FreeShipment ? Prinsip SOLID apa yang dilanggar, dan
+bagaimana perbaikan singkatnya?
+
+### Jawaban sesi 2
+1. Ketika getTotalFee() dipanggil, program akan mengalami UnsupportedOperationException karena method tersebut memanggil calculateFee() pada setiap paket. 
+    Hal ini melanggar prinsip Liskov Substitution Principle (LSP) karena FreeShipment tidak dapat menggantikan Shipment sebagaimana mestinya. Perbaikannya adalah membuat FreeShipment mengembalikan nilai 0 pada calculateFee() sehingga tetap dapat digunakan tanpa menyebabkan error.
+

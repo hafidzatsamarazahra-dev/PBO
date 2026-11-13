@@ -1,6 +1,8 @@
+
 package sesi2;
 
 public class RegularShipment extends Shipment {
+
     public RegularShipment(String code, int weight) {
         super(code, weight);
     }
