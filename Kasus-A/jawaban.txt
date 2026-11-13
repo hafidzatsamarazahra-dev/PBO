@@ -1,0 +1,20 @@
+# Kuis 2 Pemrograman Berorientasi Objek
+
+<h4>Nama : Hafidza Tsamara Z.<br>
+NIM : 254107020034<br>
+Kelas : TI-2G<br>
+Repository [link] : https://github.com/hafidzatsamarazahra-dev/PBO.git <h4>
+
+## Pertanyaan sesi 1
+1. Mengapa class induk semua paket dibuat abstract class, bukan class biasa dan bukan
+interface?
+2. Mengapa kemampuan dapat dilacak dan dapat diasuransikan dibuat sebagai dua
+interface terpisah, bukan dimasukkan ke class induk atau digabung menjadi satu
+interface?
+
+### Jawaban sesi 1
+1. Class Shipment dibuat sebagai abstract class karena semua jenis paket memiliki atribut dan perilaku dasar yang sama, yaitu kode resi, berat, calculateFee(), dan getInfo(). 
+    Abstract class memungkinkan penggunaan inheritance sehingga atribut dan method dasar dapat diwariskan kepada class turunannya, tetapi objek Shipment tidak dapat dibuat secara langsung.
+2. Karena tidak semua jenis paket memiliki kemampuan yang sama. 
+    Paket reguler tidak dapat dilacak maupun diasuransikan, sedangkan paket ekspres memiliki kedua kemampuan tersebut dan paket kargo hanya dapat dilacak. 
+    Dengan interface terpisah, setiap jenis paket dapat menerapkan kemampuan sesuai kebutuhannya.
